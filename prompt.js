@@ -77,9 +77,14 @@ const runThroughChoices = function () {
 const viewAllEmployees = function () {
     // Query database
     db.query('SELECT * FROM employee', function (err, results) {
-        console.log(results);
+        if (err) {
+            console.error(err);
+        } else {
+            console.log(results);
+        }
+        // After the query is complete, go back to the menu prompt
+        runThroughChoices();
     });
-    console.log("Viewing all Employees Here.");
 };
 
 const addEmployee = function () {
