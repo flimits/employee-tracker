@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "inquirer": "8.2.4"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "employee-tracker",
+  "description": "* Create repo with the following: * Nodejs package.json that include inquirer 8.2.4 and mysql.  * Create a server.js file that include the whole setup for express (even though there might not be a website.) * Create a video of the exercise for viewing, adding, updating employee information. * create commandline options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role",
+  "version": "1.0.0",
+  "main": "prompt.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
