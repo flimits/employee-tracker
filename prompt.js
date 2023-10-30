@@ -1,7 +1,6 @@
 const express = require('express');
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
-
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -14,13 +13,11 @@ app.use(express.json());
 const db = mysql.createConnection(
     {
         host: '127.0.0.1',
-        // MySQL username,
         user: 'root',
-        // TODO: Add MySQL password
         password: 'password',
         database: 'companyzyx'
     },
-    console.log(`Connected to the books_db database.`)
+    console.log(`Connected to the companyzyx database.`)
 );
 
 
@@ -28,8 +25,9 @@ const runThroughChoices = function () {
     const listOChoices = [
         "View All Employees",
         "Add Employee",
-        "Update Employee Role",
         "View All Roles",
+        "Update Employee Role",
+        "View ALL Departments",
         "Add Department",
         "Exit"
     ];
@@ -58,6 +56,9 @@ const runThroughChoices = function () {
                     case "View All Roles":
                         viewAllRoles();
                         break;
+                    case "View ALL Departments":
+                        viewAllDepartments();
+                        break;
                     case "Add Department":
                         addDepartment();
                         break;
@@ -75,12 +76,12 @@ const runThroughChoices = function () {
 };
 
 const viewAllEmployees = function () {
-    // Query database
+    // Query database and gather al Employees
     db.query('SELECT * FROM employee', function (err, results) {
         if (err) {
             console.error(err);
         } else {
-            console.log(results);
+            console.table(results);
         }
         // After the query is complete, go back to the menu prompt
         runThroughChoices();
@@ -91,16 +92,43 @@ const addEmployee = function () {
     console.log("Adding Employee Here.");
 };
 
+
+const viewAllRoles = function () {
+    console.log("Viewing all Roles Here.");
+    // Query database for all Roles
+    db.query('SELECT * FROM roles', function (err, results) {
+        if (err) {
+            console.error(err);
+        } else {
+            console.table(results);
+        }
+        // After the query is complete, go back to the menu prompt
+        runThroughChoices();
+    });
+};
+
 const updateEmployeeRole = function () {
     console.log("Updating Employee Role Here.");
 };
 
-const viewAllRoles = function () {
-    console.log("Viewing all Roles Here.");
+const viewAllDepartments = function () {
+    console.log("Viewing All Departments in Companyzyx.");
+    // Query database using a parameterized query
+    const sql = 'SELECT * FROM department';
+    db.query(sql, function (err, results) {
+        if (err) {
+            console.error(err);
+        } else {
+            console.table(results);
+        }
+        // After the query is complete, go back to the menu prompt
+        runThroughChoices();
+    });
 };
 
 const addDepartment = function () {
     console.log("Adding Department Here.");
+    runThroughChoices();
 };
 
 runThroughChoices();
